@@ -5,21 +5,23 @@
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+This is where the frontend lives for Can of Books starter code.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+Refer to trello cards.
+> [Trello Board](https://trello.com/b/LhHdaHUV/301n22-bestbookstasktracker)
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+React, JavaScript, Auth0
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+- (08/16) Finished Lab11
 
 ## Credit and Collaborations
-- Clarissa P,
+- Clarissa P, Alex P, Phil M, JP J,
+
+## UML
+> <img src="./pics/lab11_UML.jpg" alt="UML" width="200"/>
 
 ### Lab: 11
 
@@ -29,9 +31,9 @@ Estimate of time needed to complete: 2 hours
 
 Start time: 2:30pm
 
-Finish time: _____
+Finish time: 6:00pm(08/16)
 
-Actual time needed to complete: _____
+Actual time needed to complete: 6 hours
 
 *Logistical*
 
@@ -55,19 +57,19 @@ Actual time needed to complete: _____
 
 > Make a list of each person’s strengths.
 
-- Disciplined.
+- Disciplined with tasks and google skills.
 
 > How can you best utilize these strengths in the development of your application?
 
-- TBC
+- To try to solve the problem ourselves first.
 
 > In what areas do you each want to develop greater strength?
 
-- 
+- Comfortable with being uncomfortable.
 
 > Knowing that every person in your team needs to understand the code, how do you plan to approach the day-to-day development?
 
-- 
+- Whatever a person does, make sure the partner understands what they just did.
 
 *Conflict Resolution*
 
@@ -95,4 +97,3 @@ Books are life-changing. They have the power to enlighten, educate, entertain, h
 ## Use this template
 
 Clone this repo to your own account with the green "Use this template" button. Then, add any collaborators. Now you are ready to start adding features! Deploy your site to let the world know which books have had the greatest impact on you, and what's recommended. Enjoy!
-
