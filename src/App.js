@@ -12,8 +12,21 @@ import {
   Route
 } from "react-router-dom";
 import { withAuth0 } from "@auth0/auth0-react";
+import axios from 'axios';
 
 class App extends React.Component {
+  makeRequest = async() => {
+    const {getIdTokenClaims} = this.props.auth0;
+    let tokenClaims = await getIdTokenClaims();
+    const jwt = tokenClaims.__raw;
+    console.log('jwt: ', jwt);
+    const config = {
+      headers: {"Authorization" : `Bearer ${jwt}`},
+    }
+    const serverResponse = await axios.get('http://localhost:3001/test', config);
+
+    console.log('Worked! Data: ', serverResponse);
+  }
 
   render() {
     console.log('app', this.props);
@@ -25,7 +38,7 @@ class App extends React.Component {
         <Router>
           <IsLoadingAndError>
             <Header isAuthenticated={isAuthenticated} />
-            <BrowserRouter isAuthenticated={isAuthenticated}/>
+            <BrowserRouter isAuthenticated={isAuthenticated} makeRequest={this.makeRequest}/>
             <Footer />
           </IsLoadingAndError>
         </Router>

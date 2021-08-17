@@ -11,6 +11,9 @@ class MyFavoriteBooks extends React.Component {
         <p>
           This is a collection of my favorite books
         </p>
+        {this.props.isAuthenticated ? 
+        <button onClick={this.props.makeRequest}>Make Request to Server</button> :
+        ''}
       </Jumbotron>
     )
   }
