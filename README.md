@@ -1,4 +1,4 @@
-# Current Lab: 11
+# Current Lab: 12
 
 **Author**: Mark Thanadabouth
 
@@ -34,6 +34,18 @@ Start time: 2:30pm
 Finish time: 6:00pm(08/16)
 
 Actual time needed to complete: 6 hours
+
+### Lab: 12
+
+Name of feature: Storage/MongoDB
+
+Estimate of time needed to complete: 6 hours
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete:
 
 *Logistical*
 
