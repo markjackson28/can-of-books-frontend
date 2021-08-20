@@ -1,3 +1,14 @@
 .jumbotron{
   margin-bottom: 0;
 }
+
+.carousel{
+  margin-top: 0px;
+}
+.carousel-inner{
+  height: 128px;
+}
+.carousel-caption{
+  color: black;
+  top: 50%;
+}
