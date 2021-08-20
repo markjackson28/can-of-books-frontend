@@ -23,6 +23,8 @@ React, JavaScript, Auth0
 ## UML
 > <img src="./pics/lab11_UML.jpg" alt="UML" width="200"/>
 
+> <img src="./pics/Lab12 UML.jpg" alt="UML" width="200"/>
+
 ### Lab: 11
 
 Name of feature: User Authentication with Auth0
