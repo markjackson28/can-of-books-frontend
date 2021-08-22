@@ -6,6 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Carousel from 'react-bootstrap/Carousel';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
+import AddBookForm from './AddBookForm';
+import BookFormModal from './BookFormModal';
 import './BestBooks.css';
 
 class MyFavoriteBooks extends React.Component {
@@ -38,7 +42,34 @@ class MyFavoriteBooks extends React.Component {
     });
   }
 
+  // L13 Task 5
+  handleCreate = async (bookInfo) => {
+    try {
+      let response = await axios.post('http://localhost:3001/post-books', bookInfo);
+      const newBook = response.data;
+      this.setState({
+        books: [...this.state.books, newBook]
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // Deletes Books 
+  handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/delete-book/${id}`)
+      let remainingBooks = this.state.books.filter(book => book._id !== id);
+      this.setState({
+        books: remainingBooks,
+      });
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   render() {
+    const { isAuthenticated } = this.props.auth0;
     // Mapping over book
     let carouselItem = this.state.books.map(book => (
       <Carousel.Item key={book._id}>
@@ -56,7 +87,7 @@ class MyFavoriteBooks extends React.Component {
         <p>
           This is a collection of my favorite books
         </p>
-        {this.props.isAuthenticated ?
+        {isAuthenticated ?
           <button onClick={this.props.makeRequest}>Make Request to Server</button> :
           ''}
         {/* Conditional logic if books arr is > 0, display books */}
@@ -67,6 +98,22 @@ class MyFavoriteBooks extends React.Component {
             </Carousel>
           </Container>
           : ''}
+        {/* <AddBookForm handleCreate={this.handleCreate} /> */}
+        <Container>
+          <ListGroup>
+            {this.state.books.length > 0 ?
+              this.state.books.map(book => (
+                <ListGroup.Item key={book._id}>
+                  <h3>{book.title}</h3>
+                  <Button variant="outline-danger" onClick={() => this.handleDelete(book._id)}>
+                    Delete Book
+                  </Button>
+                </ListGroup.Item>
+              ))
+              : ''}
+          </ListGroup>
+        </Container>
+        <BookFormModal handleCreate={this.handleCreate}/>
       </Jumbotron>
     )
   }

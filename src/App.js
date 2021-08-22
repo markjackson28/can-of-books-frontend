@@ -1,9 +1,6 @@
 import React from 'react';
 import Header from './Header';
 import IsLoadingAndError from './IsLoadingAndError';
-// import Login from './Login';
-// import BestBooks from './BestBooks';
-// import Profile from './Profile';
 import BrowserRouter from './BrowserRouter';
 import Footer from './Footer';
 import {
@@ -35,7 +32,7 @@ class App extends React.Component {
       <>
         <Router>
           <IsLoadingAndError>
-            <Header isAuthenticated={isAuthenticated} />
+            <Header />
             <BrowserRouter isAuthenticated={isAuthenticated} makeRequest={this.makeRequest}/>
             <Footer />
           </IsLoadingAndError>
