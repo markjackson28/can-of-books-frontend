@@ -8,7 +8,6 @@ import Carousel from 'react-bootstrap/Carousel';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
-import AddBookForm from './AddBookForm';
 import BookFormModal from './BookFormModal';
 import './BestBooks.css';
 
@@ -18,6 +17,7 @@ class MyFavoriteBooks extends React.Component {
     super(props);
     this.state = {
       books: [],
+      showModal: false,
       // renderBooks: false,
     }
   }
@@ -63,9 +63,21 @@ class MyFavoriteBooks extends React.Component {
       this.setState({
         books: remainingBooks,
       });
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
+  }
+
+  handleShowModal = () => {
+    this.setState({
+      showModal: true,
+    })
+  }
+
+  handleCloseModal = () => {
+    this.setState({
+      showModal: false,
+    })
   }
 
   render() {
@@ -105,7 +117,7 @@ class MyFavoriteBooks extends React.Component {
               this.state.books.map(book => (
                 <ListGroup.Item key={book._id}>
                   <h3>{book.title}</h3>
-                  <Button variant="outline-danger" onClick={() => this.handleDelete(book._id)}>
+                  <Button variant="outline-danger" size="sm" onClick={() => this.handleDelete(book._id)}>
                     Delete Book
                   </Button>
                 </ListGroup.Item>
@@ -113,7 +125,10 @@ class MyFavoriteBooks extends React.Component {
               : ''}
           </ListGroup>
         </Container>
-        <BookFormModal handleCreate={this.handleCreate}/>
+        <BookFormModal handleCreate={this.handleCreate} showModal={this.state.showModal} handleCloseModal={this.handleCloseModal} />
+        <div className="addButton">
+          <Button onClick={this.handleShowModal}>Add Book</Button>
+        </div>
       </Jumbotron>
     )
   }

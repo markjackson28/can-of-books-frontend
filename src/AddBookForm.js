@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 
 class AddBookForm extends React.Component {
-
+  // Targets Values, Creates new obj and passes to handleCreate
   handleSubmit = e => {
     e.preventDefault();
     let title = e.target.title.value;
@@ -45,7 +45,7 @@ class AddBookForm extends React.Component {
             </ Form.Group>
 
             <Button type="submit">
-              Add Book
+              Save Book
             </ Button>
           </Form>
         </Container>
