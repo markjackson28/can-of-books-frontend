@@ -1,9 +1,6 @@
 import React from 'react';
 import Header from './Header';
 import IsLoadingAndError from './IsLoadingAndError';
-// import Login from './Login';
-// import BestBooks from './BestBooks';
-// import Profile from './Profile';
 import BrowserRouter from './BrowserRouter';
 import Footer from './Footer';
 import {
@@ -27,16 +24,16 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('app', this.props);
-    console.log('props', this.props.auth0);
-    const { user, IsLoading, isAuthenticated } = this.props.auth0;
-    console.log('user', user);
+    // console.log('app', this.props);
+    // console.log('props', this.props.auth0);
+    // const { user } = this.props.auth0;
+    // console.log('user', user);
     return (
       <>
         <Router>
           <IsLoadingAndError>
-            <Header isAuthenticated={isAuthenticated} />
-            <BrowserRouter isAuthenticated={isAuthenticated} makeRequest={this.makeRequest}/>
+            <Header />
+            <BrowserRouter makeRequest={this.makeRequest}/>
             <Footer />
           </IsLoadingAndError>
         </Router>

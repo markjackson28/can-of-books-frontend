@@ -7,8 +7,15 @@
 }
 .carousel-inner{
   height: 128px;
+  /* height: 160px; */
 }
 .carousel-caption{
   color: black;
   top: 50%;
+}
+
+.addButton {
+  padding: 10px;
+  width: max-content;
+  margin: auto;
 }

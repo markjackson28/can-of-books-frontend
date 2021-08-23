@@ -5,3 +5,7 @@ a{
 a:hover{
   color:darkgrey;
 }
+
+.navButtons {
+  padding: 5px;
+}
