@@ -15,7 +15,7 @@ class BookFormModal extends React.Component {
           </Modal.Header>
 
           <Modal.Body>
-            <AddBookForm handleCreate={this.props.handleCreate} />
+            <AddBookForm handleCreate={this.props.handleCreate} handleCloseModal={this.props.handleCloseModal}/>
           </Modal.Body>
 
           {/* <Modal.Footer>

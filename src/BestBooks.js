@@ -18,27 +18,25 @@ class MyFavoriteBooks extends React.Component {
     this.state = {
       books: [],
       showModal: false,
-      // renderBooks: false,
     }
   }
 
   // Task 2 card 2: GET Request
   componentDidMount = async () => {
-    const { getIdTokenClaims } = this.props.auth0;
+    const { getIdTokenClaims, user } = this.props.auth0;
     let tokenClaims = await getIdTokenClaims();
     const jwt = tokenClaims.__raw;
     console.log('jwt: ', jwt);
     const config = {
       headers: { "Authorization": `Bearer ${jwt}` },
-      // Allow access on backend to see data
-      // params: {email: this.props.auth0.user.email},
+      // Sending email to backend
+      params: {email: user.email},
     };
 
     const results = await axios.get('http://localhost:3001/books', config);
     console.log(results.data);
     this.setState({
       books: results.data,
-      // renderBooks: true,
     });
   }
 
@@ -58,7 +56,17 @@ class MyFavoriteBooks extends React.Component {
   // Deletes Books 
   handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/delete-book/${id}`)
+      const { getIdTokenClaims } = this.props.auth0;
+      let tokenClaims = await getIdTokenClaims();
+      const jwt = tokenClaims.__raw;
+      console.log('jwt: ', jwt);
+      const config = {
+        headers: { "Authorization": `Bearer ${jwt}` },
+        // Sending email to backend
+        params: {email: this.props.auth0.user.email},
+      };
+
+      await axios.delete(`http://localhost:3001/delete-book/${id}`, config)
       let remainingBooks = this.state.books.filter(book => book._id !== id);
       this.setState({
         books: remainingBooks,
@@ -82,12 +90,12 @@ class MyFavoriteBooks extends React.Component {
 
   render() {
     const { isAuthenticated } = this.props.auth0;
-    // Mapping over book
+    // Mapping over books for Carousel
     let carouselItem = this.state.books.map(book => (
       <Carousel.Item key={book._id}>
         <Carousel.Caption>
-          <h4>{book.title}</h4>
-          <h5>{book.description}</h5>
+          <h3>{book.title}</h3>
+
         </Carousel.Caption>
       </Carousel.Item>
     ));
@@ -100,7 +108,7 @@ class MyFavoriteBooks extends React.Component {
           This is a collection of my favorite books
         </p>
         {isAuthenticated ?
-          <button onClick={this.props.makeRequest}>Make Request to Server</button> :
+          <Button variant="outline-primary" onClick={this.props.makeRequest}>Make Request to Server</Button> :
           ''}
         {/* Conditional logic if books arr is > 0, display books */}
         {this.state.books.length > 0 ?
@@ -110,13 +118,13 @@ class MyFavoriteBooks extends React.Component {
             </Carousel>
           </Container>
           : ''}
-        {/* <AddBookForm handleCreate={this.handleCreate} /> */}
         <Container>
           <ListGroup>
             {this.state.books.length > 0 ?
               this.state.books.map(book => (
                 <ListGroup.Item key={book._id}>
-                  <h3>{book.title}</h3>
+                  <h4>Title: {book.title}</h4>
+                  <h5>Description: {book.description}</h5>
                   <Button variant="outline-danger" size="sm" onClick={() => this.handleDelete(book._id)}>
                     Delete Book
                   </Button>

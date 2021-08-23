@@ -7,6 +7,7 @@
 }
 .carousel-inner{
   height: 128px;
+  /* height: 160px; */
 }
 .carousel-caption{
   color: black;
