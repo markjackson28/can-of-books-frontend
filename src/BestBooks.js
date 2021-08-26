@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import BookFormModal from './BookFormModal';
 import './BestBooks.css';
+import UpdateBookModal from './UpdateBookModal';
 
 class MyFavoriteBooks extends React.Component {
   // Task 3 card 2: Store data to state
@@ -18,6 +19,8 @@ class MyFavoriteBooks extends React.Component {
     this.state = {
       books: [],
       showModal: false,
+      showUpdateModal: false,
+      selectedBook: null,
     }
   }
 
@@ -30,7 +33,7 @@ class MyFavoriteBooks extends React.Component {
     const config = {
       headers: { "Authorization": `Bearer ${jwt}` },
       // Sending email to backend
-      params: {email: user.email},
+      params: { email: user.email },
     };
 
     const results = await axios.get('http://localhost:3001/books', config);
@@ -63,7 +66,7 @@ class MyFavoriteBooks extends React.Component {
       const config = {
         headers: { "Authorization": `Bearer ${jwt}` },
         // Sending email to backend
-        params: {email: this.props.auth0.user.email},
+        params: { email: this.props.auth0.user.email },
       };
 
       await axios.delete(`http://localhost:3001/delete-book/${id}`, config)
@@ -74,6 +77,22 @@ class MyFavoriteBooks extends React.Component {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  handleUpdate = async (book) => {
+    await axios.put(`http://localhost:3001/put-book/${book._id}`, book);
+
+    // Updates page
+    let updatedBooks = this.state.books.map(upBook => {
+      if (upBook._id === book._id) {
+        return book;
+      } else {
+        return upBook;
+      }
+    });
+    this.setState({
+      books: updatedBooks,
+    })
   }
 
   handleShowModal = () => {
@@ -88,7 +107,21 @@ class MyFavoriteBooks extends React.Component {
     })
   }
 
+  handleShowUpdateModal = (book) => {
+    this.setState({
+      showUpdateModal: true,
+      selectedBook: book,
+    })
+  }
+
+  handleCloseUpdateModal = () => {
+    this.setState({
+      showUpdateModal: false,
+    })
+  }
+
   render() {
+    console.log(`selectedBook: `, this.state.selectedBook)
     const { isAuthenticated } = this.props.auth0;
     // Mapping over books for Carousel
     let carouselItem = this.state.books.map(book => (
@@ -125,7 +158,11 @@ class MyFavoriteBooks extends React.Component {
                 <ListGroup.Item key={book._id}>
                   <h4>Title: {book.title}</h4>
                   <h5>Description: {book.description}</h5>
-                  <Button variant="outline-danger" size="sm" onClick={() => this.handleDelete(book._id)}>
+                  <h5>Status: {book.status}</h5>
+                  <Button variant="secondary" size="sm" onClick={() => this.handleShowUpdateModal(book)}>
+                    Update Book
+                  </Button>
+                  <Button className="deleteButton" variant="outline-danger" size="sm" onClick={() => this.handleDelete(book._id)}>
                     Delete Book
                   </Button>
                 </ListGroup.Item>
@@ -137,6 +174,7 @@ class MyFavoriteBooks extends React.Component {
         <div className="addButton">
           <Button onClick={this.handleShowModal}>Add Book</Button>
         </div>
+        <UpdateBookModal showUpdateModal={this.state.showUpdateModal} handleCloseUpdateModal={this.handleCloseUpdateModal} selectedBook={this.state.selectedBook} handleUpdate={this.handleUpdate} />
       </Jumbotron>
     )
   }
