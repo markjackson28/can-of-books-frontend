@@ -19,3 +19,7 @@
   width: max-content;
   margin: auto;
 }
+
+.deleteButton {
+  margin-left: 10px;
+}
